@@ -1,0 +1,5 @@
+AddOptionMenu "ModOptionsMenu"
+{
+  ModHeader "Previous Throwable Keybind", "patman", "", ""
+  Control "Previous Throwable", "netevent pat_PrevGadget"
+}

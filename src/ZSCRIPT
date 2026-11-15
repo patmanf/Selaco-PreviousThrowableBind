@@ -1,0 +1,30 @@
+version "4.15.1"
+
+class pat_PreviousGadget : StaticEventHandler
+{
+  override void NetworkProcess(ConsoleEvent e) {
+    if (e.Name ~== "pat_PrevGadget") {
+      let d = Dawn(players[e.player].mo);
+      if (d) PrevGadget(d);
+    }
+  }
+
+  private void PrevGadget(Dawn d) {
+    d.equippedThrowable = null;
+
+    let size = d.equipmentSlots.size();
+    for (int x = 0; x < size; x++) {
+      d.equipmentSlot = (d.equipmentSlot == 0 ? size : d.equipmentSlot) - 1;
+
+      let slot = d.equipmentSlots[d.equipmentSlot];
+      if (slot) {
+        let am = SelacoAmmo(d.FindInventory(slot));
+        if (am.Amount > 0) {
+          d.equippedThrowable = am;
+          EventHandler.SendInterfaceEvent(d.playerNumber(), "EquipmentChanged");
+          break;
+        }
+      }
+    }
+  }
+}
