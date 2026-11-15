@@ -12,12 +12,21 @@
     {
       "label": "launch selaco",
       "type": "shell",
-      "dependsOn": [ "build pk3" ],
+      "dependsOn": [
+        "build pk3"
+      ],
       "command": "Start-Process 'steam://rungameid/1592280'",
       "group": {
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "stage",
+      "type": "shell",
+      "dependsOn": [ "build pk3" ],
+      "command": "copy thumbnail.png ../Staging/${workspaceFolderBasename}.png; copy ../${workspaceFolderBasename}.pk3 ../Staging",
+      "problemMatcher": []
     }
   ]
 }
